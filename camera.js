@@ -15,13 +15,13 @@
  * =============================================================================
  */
 import * as posenet from '@tensorflow-models/posenet';
-import dat from 'dat.gui';
+// import dat from 'dat.gui';
 import Stats from 'stats.js';
 
 import {drawBoundingBox, drawKeypoints, drawSkeleton, isMobile, toggleLoadingUI, tryResNetButtonName, tryResNetButtonText, updateTryResNetButtonDatGuiCss} from './demo_util';
 
-const videoWidth = 600;
-const videoHeight = 500;
+const videoWidth = 960;
+const videoHeight = 540;
 const stats = new Stats();
 
 /**
@@ -110,7 +110,7 @@ function setupGui(cameras, net) {
   if (cameras.length > 0) {
     guiState.camera = cameras[0].deviceId;
   }
-
+/* Reason of comment is purpose for hide configuration view
   const gui = new dat.GUI({width: 300});
 
   let architectureController = null;
@@ -271,6 +271,7 @@ function setupGui(cameras, net) {
         break;
     }
   });
+ */
 }
 
 /**
@@ -414,6 +415,7 @@ function detectPoseInRealTime(video, net) {
       ctx.save();
       ctx.scale(-1, 1);
       ctx.translate(-videoWidth, 0);
+      // If you wanna remain only dots and lines just delete below code
       ctx.drawImage(video, 0, 0, videoWidth, videoHeight);
       ctx.restore();
     }
@@ -472,7 +474,8 @@ export async function bindPage() {
   }
 
   setupGui([], net);
-  setupFPS();
+  // hide fps view
+  // setupFPS();
   detectPoseInRealTime(video, net);
 }
 
